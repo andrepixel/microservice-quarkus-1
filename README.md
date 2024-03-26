@@ -1,6 +1,6 @@
 > Esse projeto, é o primeiro dentre outros de um projeto maior, que visa estudar microservice com Quarkus.
 
-> Para saber mais informações acesse o "[Projeto Pai]https://github.com/andrepixel/microservice-quarkus/)"
+> Para saber mais informações acesse o "[Projeto Pai](https://github.com/andrepixel/microservice-quarkus/)"
 
 ### Arquitetura
 
