@@ -4,7 +4,7 @@
 
 ### Arquitetura
 
-![](https://github.com/andrepixel/microservice-quarkus/blob/main/Quarkus_Architecture.png)
+![](https://github.com/andrepixel/microservice-quarkus/blob/main/Quarkus_Architecture.jpg)
 
 ### Como executar
 
