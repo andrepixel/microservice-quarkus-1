@@ -27,7 +27,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-public final class MavenWrapperDownloader
+private  class MavenWrapperDownloader
 {
     private static final String WRAPPER_VERSION = "3.2.0";
 
