@@ -155,18 +155,14 @@ public class TicketModel {
 
     @Override
     public String toString() {
-        return "TicketModel [id="
-                + id
-                + ", section="
-                + section
-                + ", client="
-                + client
+        return "TicketModel [id=" + id
+                + ", section=" + section
+                + ", client=" + client
                 + ", dateOfTicketGenerated="
                 + dateOfTicketGenerated
                 + ", statusOfTicket="
                 + statusOfTicket
                 + ", listOfCompanies="
-                + listOfCompanies
-                + "]";
+                + listOfCompanies + "]";
     }
 }
