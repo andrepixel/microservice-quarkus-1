@@ -1,4 +1,4 @@
-package org.andrepixel;
+package org.andrepixel.utils;
 
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;

@@ -1,9 +1,9 @@
 package org.andrepixel.models;
 
-public class CrimsonFleet extends TicketModel {
+public class CrimsonFleetModel extends TicketModel {
     private Boolean hasPopCorn;
 
-    public CrimsonFleet() {
+    public CrimsonFleetModel() {
         super();
     }
 
@@ -34,7 +34,7 @@ public class CrimsonFleet extends TicketModel {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        CrimsonFleet other = (CrimsonFleet) obj;
+        CrimsonFleetModel other = (CrimsonFleetModel) obj;
         if (hasPopCorn == null) {
             if (other.hasPopCorn != null)
                 return false;
@@ -46,7 +46,7 @@ public class CrimsonFleet extends TicketModel {
 
     @Override
     public String toString() {
-        return "CrimsonFleet [" + super.toString()
+        return "CrimsonFleetModel [" + super.toString()
                 + ", hasPopCorn=" + hasPopCorn
                 + "]";
     }
