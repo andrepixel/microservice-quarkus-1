@@ -4,7 +4,7 @@ import io.quarkus.scheduler.Scheduled;
 import jakarta.enterprise.context.ApplicationScoped;
 
 import org.andrepixel.interfaces.GeneratedTicketInterface;
-import org.andrepixel.interfaces.MessageBrokerGateway;
+import org.andrepixel.interfaces.MessageBrokerGatewayInterface;
 import org.andrepixel.models.TicketModel;
 import org.andrepixel.utils.ResponseBroker;
 import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
@@ -20,11 +20,11 @@ public class TicketService {
 
   private GeneratedTicketInterface generatedTicket;
 
-  private MessageBrokerGateway messageBrokerGateway;
+  private MessageBrokerGatewayInterface messageBrokerGateway;
 
   public TicketService(
     GeneratedTicketInterface generatedTicket,
-    MessageBrokerGateway messageBrokerGateway
+    MessageBrokerGatewayInterface messageBrokerGateway
   ) {
     this.generatedTicket = generatedTicket;
     this.messageBrokerGateway = messageBrokerGateway;

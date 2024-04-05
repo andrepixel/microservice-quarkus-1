@@ -4,6 +4,6 @@ import org.andrepixel.models.TicketModel;
 import org.andrepixel.utils.ResponseBroker;
 
 
-public interface MessageBrokerGateway  {
+public interface MessageBrokerGatewayInterface  {
     public ResponseBroker sendMessage(TicketModel message);
 }

@@ -3,7 +3,7 @@ package org.andrepixel.gateways;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.andrepixel.interfaces.MessageBrokerGateway;
+import org.andrepixel.interfaces.MessageBrokerGatewayInterface;
 import org.andrepixel.models.TicketModel;
 import org.andrepixel.utils.ResponseBroker;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -13,7 +13,7 @@ import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.SendMessageResponse;
 
 @ApplicationScoped
-public class SqsMessageBrokerGateway implements MessageBrokerGateway {
+public class SqsMessageBrokerGateway implements MessageBrokerGatewayInterface {
 
   private SqsClient client;
 
