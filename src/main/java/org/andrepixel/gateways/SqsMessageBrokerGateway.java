@@ -1,14 +1,10 @@
 package org.andrepixel.gateways;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import java.util.Optional;
 import java.util.UUID;
-
 import org.andrepixel.interfaces.MessageBrokerGatewayInterface;
-import org.andrepixel.models.TicketModel;
-import org.andrepixel.utils.ResponseBroker;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-
-import jakarta.enterprise.context.ApplicationScoped;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.SendMessageResponse;
 
@@ -25,7 +21,7 @@ public class SqsMessageBrokerGateway implements MessageBrokerGatewayInterface {
   }
 
   @Override
-  public ResponseBroker sendMessage(TicketModel message) {
+  public boolean sendMessage(byte[] message) {
     SendMessageResponse sendMessage = client.sendMessage(m ->
       m
         .messageGroupId("sqsQueueName")
@@ -33,12 +29,6 @@ public class SqsMessageBrokerGateway implements MessageBrokerGatewayInterface {
         .messageBody(message.toString())
     );
 
-    boolean isSuccess = sendMessage.sdkHttpResponse().isSuccessful();
-    
-    ResponseBroker response = new ResponseBroker();
-    response.setIsSuccess(isSuccess);
-    response.setMessage(message);
-
-    return response;
+    return sendMessage.sdkHttpResponse().isSuccessful();
   }
 }

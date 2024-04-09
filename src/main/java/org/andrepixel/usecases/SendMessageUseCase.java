@@ -1,12 +1,9 @@
 package org.andrepixel.usecases;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import org.andrepixel.interfaces.MessageBrokerGatewayInterface;
 import org.andrepixel.interfaces.SendMessageInterface;
-import org.andrepixel.models.TicketModel;
-import org.andrepixel.utils.ResponseBroker;
 import org.jboss.logging.Logger;
-
-import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class SendMessageUseCase implements SendMessageInterface {
@@ -17,14 +14,14 @@ public class SendMessageUseCase implements SendMessageInterface {
 
   private MessageBrokerGatewayInterface messageBrokerGateway;
 
-  public SendMessageUseCase(MessageBrokerGatewayInterface messageBrokerGateway) {
+  public SendMessageUseCase(
+    MessageBrokerGatewayInterface messageBrokerGateway
+  ) {
     this.messageBrokerGateway = messageBrokerGateway;
   }
 
   @Override
-  public ResponseBroker sendMessage(TicketModel message) {
-    ResponseBroker messageSend = messageBrokerGateway.sendMessage(message);
-
-    return messageSend;
+  public boolean sendMessage(byte[] payload) {
+    return messageBrokerGateway.sendMessage(payload);
   }
 }

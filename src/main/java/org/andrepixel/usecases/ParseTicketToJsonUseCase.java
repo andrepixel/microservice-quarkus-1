@@ -1,21 +1,20 @@
 package org.andrepixel.usecases;
 
-import org.andrepixel.dtos.TicketDto;
-import org.andrepixel.interfaces.ParseTicketInterface;
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class ParseTicketToJsonUseCase implements ParseTicketInterface{
+public class ParseTicketToJsonUseCase {
 
-    @Override
-    public TicketDto parsTicketToJson() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-    
-    // public Object<? extends TicketDto> parsTicketToJson() {
+  public byte[] parseDtoToJson(Object dto) throws JsonProcessingException {
+    ObjectMapper mapper = JsonMapper
+      .builder()
+      .addModule(new JavaTimeModule())
+      .build();
 
-
-        
+    return mapper.writeValueAsBytes(dto);
+  }
 }
