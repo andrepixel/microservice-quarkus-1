@@ -69,8 +69,7 @@ public class TicketService {
   }
 
   private void fallback(Exception exception) {
-    LOGGER.info("SQS service is dead");
-    LOGGER.info(exception.getMessage());
+    LOGGER.info("Service is dead due to exception - " + exception.getMessage());
   }
 
   private void verifyIfSendedMessage(boolean isMessageSended, byte[] payload)
