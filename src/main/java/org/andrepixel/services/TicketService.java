@@ -47,7 +47,7 @@ public class TicketService {
   }
 
   @Scheduled(every = "3s")
-  // @Fallback(fallbackMethod = "fallback")
+  @Fallback(fallbackMethod = "fallback")
   @CircuitBreaker(
     requestVolumeThreshold = 5,
     failureRatio = 0.5,
@@ -68,8 +68,9 @@ public class TicketService {
     counterOfTicket++;
   }
 
-  private void fallback() {
+  private void fallback(Exception exception) {
     LOGGER.info("SQS service is dead");
+    LOGGER.info(exception.getMessage());
   }
 
   private void verifyIfSendedMessage(boolean isMessageSended, byte[] payload)
