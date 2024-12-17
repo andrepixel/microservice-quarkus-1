@@ -15,4 +15,4 @@ public record FreestarDto(
   StatusOfTicket statusOfTicket,
   ListOfCompanies listOfCompanies,
   Boolean isMax
-) {}
+) implements TicketDtoInterface {}

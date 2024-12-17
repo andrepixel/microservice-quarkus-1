@@ -15,4 +15,4 @@ public record CrimsonFleetDto(
   StatusOfTicket statusOfTicket,
   ListOfCompanies listOfCompanies,
   Boolean hasPopCorn
-) {}
+) implements TicketDtoInterface{}

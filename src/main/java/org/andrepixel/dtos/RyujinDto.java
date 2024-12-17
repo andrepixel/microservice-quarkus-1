@@ -15,4 +15,4 @@ public record RyujinDto(
   StatusOfTicket statusOfTicket,
   ListOfCompanies listOfCompanies,
   Boolean isVIP
-) {}
+) implements TicketDtoInterface {}

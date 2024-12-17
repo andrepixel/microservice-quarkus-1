@@ -15,4 +15,4 @@ public record ConstellationDto(
   StatusOfTicket statusOfTicket,
   ListOfCompanies listOfCompanies,
   Boolean recliningSeatType
-) {}
+) implements TicketDtoInterface{}

@@ -1,8 +1,7 @@
 package org.andrepixel.usecases;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import java.time.LocalDateTime;
-import org.andrepixel.dtos.WrapperDto;
+import org.andrepixel.dtos.TicketDtoInterface;
 import org.andrepixel.interfaces.ParseTicketDtoInterface;
 import org.andrepixel.models.ConstellationModel;
 import org.andrepixel.models.CrimsonFleetModel;
@@ -18,31 +17,21 @@ import org.andrepixel.utils.mappers.RyujinMapper;
 public class ParseTicketToDtoUseCase implements ParseTicketDtoInterface {
 
   @Override
-  public <T extends TicketModel> Object parseTicketToDto(T ticket) {
-    Object dto = selectDtoCorrect(ticket);
-
-    return addWrapperDto(dto);
+  public <T extends TicketModel> TicketDtoInterface parseTicketToDto(T ticket) {
+    return selectDtoCorrect(ticket);
   }
 
-  private <T extends TicketModel> Object selectDtoCorrect(T ticket) {
+  private <T extends TicketModel> TicketDtoInterface selectDtoCorrect(T ticket) {
     return switch (ticket.getClass().getSimpleName()) {
       case "ConstellationModel" -> ConstelationMapper.INSTANCE.toTicketDto(
-        (ConstellationModel) ticket
-      );
+          (ConstellationModel) ticket);
       case "CrimsonFleetModel" -> CrimsonFleetMapper.INSTANCE.toTicketDto(
-        (CrimsonFleetModel) ticket
-      );
+          (CrimsonFleetModel) ticket);
       case "FreestarModel" -> FreestarMapper.INSTANCE.toTicketDto(
-        (FreestarModel) ticket
-      );
+          (FreestarModel) ticket);
       case "RyujinModel" -> RyujinMapper.INSTANCE.toTicketDto(
-        (RyujinModel) ticket
-      );
+          (RyujinModel) ticket);
       default -> null;
     };
-  }
-
-  private Object addWrapperDto(Object dto) {
-    return new WrapperDto(dto, LocalDateTime.now());
   }
 }

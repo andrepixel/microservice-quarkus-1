@@ -1,15 +1,10 @@
 package org.andrepixel.services;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.exc.StreamReadException;
-import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.quarkus.scheduler.Scheduled;
 import jakarta.enterprise.context.ApplicationScoped;
-import java.io.IOException;
-import net.bytebuddy.utility.JavaModule;
-import org.andrepixel.dtos.WrapperDto;
+
+import org.andrepixel.dtos.TicketDtoInterface;
 import org.andrepixel.interfaces.GeneratedTicketInterface;
 import org.andrepixel.interfaces.MessageBrokerGatewayInterface;
 import org.andrepixel.models.TicketModel;
@@ -35,11 +30,10 @@ public class TicketService {
   private ParseTicketToJsonUseCase parseTicketToJsonUseCase;
 
   public TicketService(
-    GeneratedTicketInterface generatedTicket,
-    MessageBrokerGatewayInterface messageBrokerGateway,
-    ParseTicketToDtoUseCase parseTicketToDtoUseCase,
-    ParseTicketToJsonUseCase parseTicketToJsonUseCase
-  ) {
+      GeneratedTicketInterface generatedTicket,
+      MessageBrokerGatewayInterface messageBrokerGateway,
+      ParseTicketToDtoUseCase parseTicketToDtoUseCase,
+      ParseTicketToJsonUseCase parseTicketToJsonUseCase) {
     this.generatedTicket = generatedTicket;
     this.messageBrokerGateway = messageBrokerGateway;
     this.parseTicketToDtoUseCase = parseTicketToDtoUseCase;
@@ -48,16 +42,11 @@ public class TicketService {
 
   @Scheduled(every = "3s")
   @Fallback(fallbackMethod = "fallback")
-  @CircuitBreaker(
-    requestVolumeThreshold = 5,
-    failureRatio = 0.5,
-    successThreshold = 3,
-    delay = 3000
-  )
+  @CircuitBreaker(requestVolumeThreshold = 5, failureRatio = 0.5, successThreshold = 3, delay = 3000)
   public void processTicketToSqs() throws Exception {
     TicketModel ticket = generatedTicket.generateTicket();
 
-    Object ticketToDto = parseTicketToDtoUseCase.parseTicketToDto(ticket);
+    TicketDtoInterface ticketToDto = parseTicketToDtoUseCase.parseTicketToDto(ticket);
 
     byte[] payload = parseTicketToJsonUseCase.parseDtoToJson(ticketToDto);
 
@@ -73,15 +62,12 @@ public class TicketService {
   }
 
   private void verifyIfSendedMessage(boolean isMessageSended, byte[] payload)
-    throws Exception {
-    WrapperDto message = new ObjectMapper()
-      .registerModule(new JavaTimeModule())
-      .readValue(payload, WrapperDto.class);
+      throws Exception {
+    String message = new ObjectMapper()
+        .readValue(payload, String.class);
 
-    if (isMessageSended == true) {
+    if (isMessageSended == true)
       LOGGER.info(
-        "Send Ticket " + counterOfTicket + " to SQS - " + message + "\n"
-      );
-    }
+          "Send Ticket " + counterOfTicket + " to SQS - " + message + "\n");
   }
 }
